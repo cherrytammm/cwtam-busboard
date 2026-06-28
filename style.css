@@ -1,0 +1,76 @@
+/* 1. 確保最外層設定好背景圖，並清除預設邊距 */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* 2. 背景容器：全螢幕 */
+body {
+    background: url('Okinawa.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 3. 容器：全螢幕排列 */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* 強制容器高度為視窗高度 */
+}
+
+/* 4. 左欄：黑色半透明遮罩 (關鍵在於 height: 100%) */
+.left-panel {
+    width: 50%;
+    height: 100vh; /* 強制填滿高度 */
+    background-color: rgba(0, 0, 0, 0.6); /* 這是覆蓋在背景圖上的半透明層 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 5. 右欄：白色背景 */
+.right-panel {
+    width: 50%;
+    height: 100vh; /* 強制與畫面同高 */
+    background-color: #ffffff;
+    box-sizing: border-box; /* 確保 padding 不會把容器撐開 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 強化字體 */
+#clock { font-size: 5rem; font-weight: bold; color:#ffffff;}
+#date {font-size: 2.5rem; font-weight: bold; color:#ffffff;}
+#weather { font-size: 3rem; font-weight: bold; color:#ffffff;}
+/* 使用 !important 確保顏色覆蓋成功 */
+
+.bus-route {
+    color: blueviolet !important;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.bus-time {
+    color: red !important;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* 讓列表看起來整齊一點 */
+.bus-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.5vh;!important; 
+    padding: 0.5vh 0;
+    border-bottom: 1px solid #cccccc;
+}
+
+h2{ font-size: 3rem; margin-bottom: 5px;line-height: 1.1;background-color: red; color: #ffffff;} 
+h3{ font-size: 2rem; margin-bottom: 5px;line-height: 0.8;}
