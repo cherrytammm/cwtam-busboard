@@ -18,7 +18,8 @@ updateDateTime();
 const busLines = [
     { route: '211', stopId: '73829A47B6E78E5B' },
     { route: '1',   stopId: '9ED7E93749ABAE67' },
-    { route: '11K', stopId: '9ED7E93749ABAE67' }
+    { route: '11K', stopId: '9ED7E93749ABAE67' },
+    { route: '89B', stopId: 'FDA52ED538BDD5E4' },
 ];
 
 async function updateWeather() {
