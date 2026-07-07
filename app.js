@@ -59,7 +59,43 @@ updateWeather();
 // 天氣不用每秒更新，每 10 分鐘更新一次即可
 setInterval(updateWeather, 600000);
 
+async function updateWeather() {
+    try {
+        // 1. 抓取主要天氣資料
+        const response = await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc');
+        const data = await response.json();
 
+        // 2. 更新溫度
+        const tempInfo = data.temperature.data.find(item => item.place === '黃大仙');
+        if (tempInfo) document.getElementById('weather').innerText = `${tempInfo.value}°C`;
+        
+        // 更新天氣主圖示
+        const iconElement = document.getElementById('weather-icon');
+        if (iconElement && data.icon.length > 0) {
+            iconElement.src = `https://www.hko.gov.hk/images/HKOWxIconOutline/Outline_wxicon_pic${data.icon[0]}.png`;
+        }
+
+        // 3. 抓取警告資訊 (僅保留文字)
+        const warnResponse = await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=tc');
+        const warnData = await warnResponse.json();
+        
+        const warningElement = document.getElementById('weather-warning');
+        
+        // 篩選所有目前生效 (ISSUE) 的警告
+        const activeWarnings = Object.keys(warnData).filter(key => warnData[key].actionCode === 'ISSUE');
+        
+        if (activeWarnings.length > 0) {
+            // 顯示文字
+            warningElement.innerText = activeWarnings.map(key => warnData[key].warningStatement).join('、');
+        } else {
+            // 沒有警告時清空
+            warningElement.innerText = ""; 
+        }
+
+    } catch (error) {
+        console.error("抓取天氣失敗:", error);
+    }
+}
 async function updateAllBuses() {
     const container = document.getElementById('bus-list');
     let busListHtml = '<h2>今日搭咩車？</h2>'; // 重新整理清單
