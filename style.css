@@ -8,7 +8,7 @@ body, html {
 
 /* 2. 背景容器：全螢幕 */
 body {
-    background: url('Okinawa.jpeg') no-repeat center center fixed;
+    background: url('IMG_9343.jpeg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -47,7 +47,12 @@ body {
 #clock { font-size: 5rem; font-weight: bold; color:#ffffff;}
 #date {font-size: 2.5rem; font-weight: bold; color:#ffffff;}
 #weather { font-size: 3rem; font-weight: bold; color:#ffffff;}
-/* 使用 !important 確保顏色覆蓋成功 */
+#weather-warning {
+    font-size: 1.2rem;   /* 設定一個適合的字體大小 */
+    max-width: 200px;    /* 限制警告訊息的最大寬度，避免文字太長跑版 */
+    word-wrap: break-word; /* 如果字太多，強制換行 */
+}
+
 
 .bus-route {
     color: blueviolet !important;
