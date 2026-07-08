@@ -52,6 +52,13 @@ body {
     max-width: 200px;    /* 限制警告訊息的最大寬度，避免文字太長跑版 */
     word-wrap: break-word; /* 如果字太多，強制換行 */
 }
+#warning-icon {
+    display: none;       /* 預設隱藏 */
+    width: 200px;        /* 你可以把這個數值改大，例如 150px 或 200px */
+    height: auto;        /* 確保高度隨寬度自動縮放，不會變形 */
+    margin-top: 10px;    /* 跟上方的元件拉開一點距離 */
+    margin-bottom: 10px;
+}
 
 
 .bus-route {
