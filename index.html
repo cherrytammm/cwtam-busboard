@@ -8,26 +8,23 @@
 </head> 
 <body>
     
-    
     <div class="container">
         <div class="left-panel">
             <div id="clock">00:00</div>
             <div id="date">0000年0月0日</div>  
 
-           <div class="weather-container">
-              <img id="weather-icon" src="" alt="天氣" style="width: 100px; height: 100px;">   
-              <div id="weather">天氣載入中...</div>
-              <div id="weather-warning" style="color: #ffcc00; font-weight: bold; margin-top: 10px;"></div>
-              <img id="warning-icon" src="" alt="天氣警告" style="display: none; width: 100px;">
-              <div id="weather-warning"></div>
+            <div class="weather-container">
+                <img id="weather-icon" src="" alt="天氣" style="width: 100px; height: 100px;">   
+                <div id="weather">天氣載入中...</div>
+                
+                <div id="warning-icons-container"></div>
+                <div id="weather-warning" style="color: #ffcc00; font-weight: bold; margin-top: 10px;"></div>
             </div>
         </div>
 
-            <div class="right-panel">
-                <div id="bus-list"></div>
-               
-
-            </div>
+        <div class="right-panel">
+            <div id="bus-list"></div>
+        </div>
     </div>
 
     <script src="app.js"></script>
