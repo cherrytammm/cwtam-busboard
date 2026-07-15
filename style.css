@@ -52,14 +52,27 @@ body {
     max-width: 200px;    /* 限制警告訊息的最大寬度，避免文字太長跑版 */
     word-wrap: break-word; /* 如果字太多，強制換行 */
 }
-#warning-icon {
-    display: none;       /* 預設隱藏 */
-    width: 200px;        /* 你可以把這個數值改大，例如 150px 或 200px */
-    height: auto;        /* 確保高度隨寬度自動縮放，不會變形 */
-    margin-top: 10px;    /* 跟上方的元件拉開一點距離 */
-    margin-bottom: 10px;
+
+#warning-icons-container {
+    display: flex;            /* 開啟水平排列 */
+    flex-direction: row;      /* 強制由左至右排列 */
+    justify-content: center;  /* 讓兩個圖示在中央對齊 */
+    align-items: center;      /* 讓圖片在垂直方向也對齊 */
+    gap: 15px;                /* 圖示之間的距離，你可以調整這個數值 */
+    margin-top: 15px;
+    min-height: 80px;         /* 確保容器高度足以顯示圖片 */
 }
 
+/* 確保裡面的圖片不會因為太大而強迫換行 */
+#warning-icons-container img {
+    width: 80px !important;   /* 你可以把這裡改小一點，例如 60px，這能讓兩張圖更容易並排 */
+    height: auto;
+    display: block;
+}
+
+#warning-icon {
+    display: none; 
+}
 
 .bus-route {
     color: blueviolet !important;
@@ -79,7 +92,7 @@ body {
 .bus-item {
     display: flex;
     justify-content: space-between;
-    font-size: 1.5vh;!important; 
+    font-size: 1.5vh !important; 
     padding: 0.5vh 0;
     border-bottom: 0.5px solid #cccccc;
 }
