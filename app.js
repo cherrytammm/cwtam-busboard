@@ -32,33 +32,58 @@ async function updateWeather() {
         }
 
         const warningIconMap = {
-            "WRAIN": "images/wrain.png", "WRAINA": "images/wrain.png", "WREDRAIN": "images/wredrain.png",
-            "WBLACKRAIN": "images/wblackrain.png", "WTS": "images/wts.png", "WHOT": "images/whot.png",
-            "W1": "images/w1.png", "W3": "images/w3.png", "W8NW": "images/w8nw.png",
-            "W8NE": "images/w8ne.png", "W8SW": "images/w8sw.png", "W8SE": "images/w8se.png",
-            "W9": "images/w9.png", "W10": "images/w10.png", "WCOLD": "images/wcold.png",
-            "WFIREY": "images/wfirey.png", "WFIRE": "images/wfire.png", "WVY": "images/wvy.png",
-            "WFROST": "images/wfrost.png", "WLS": "images/wls.png", "WT": "images/wt.png"
+            "WRAIN": "images/wrain.png",
+            "WRAINA": "images/wrain.png",
+            "WRAINR": "images/wredrain.png",
+            "WRAINB": "images/wblackrain.png",
+            "WTS": "images/wts.png", 
+            "WHOT": "images/whot.png",
+            "W1": "images/w1.png",
+            "W3": "images/w3.png", 
+            "W8NW": "images/w8nw.png",
+            "W8NE": "images/w8ne.png",
+            "W8SW": "images/w8sw.png", 
+            "W8SE": "images/w8se.png",
+            "W9": "images/w9.png", 
+            "W10": "images/w10.png", 
+            "WCOLD": "images/wcold.png",
+            "WFIREY": "images/wfirey.png", 
+            "WFIRER": "images/wfire.png", 
+            "WMSGNL": "images/wvy.png",
+            "WFROST": "images/wfrost.png", 
+            "WL": "images/wls.png",
+            "WFNTSA": "images/wfntsa.png"
         };
 
         const activeWarnings = Object.keys(warnData).filter(key => warnData[key].actionCode !== 'CANCEL');
         const warningElement = document.getElementById('weather-warning');
         const iconContainer = document.getElementById('warning-icons-container');
-        
+
         if (activeWarnings.length > 0) {
-            warningElement.innerText = activeWarnings.map(key => warnData[key].warningStatement).join('、');
+
+            warningElement.style.display = 'block';
+            warningElement.style.marginTop = '10px';
+            warningElement.innerText = activeWarnings.map(key => warnData[key].warningStatement).join('');
             if (iconContainer) {
                 iconContainer.innerHTML = '';
-                activeWarnings.forEach(code => {
-                    let finalCode = code;
-                    if (code === 'W8') {
-                        const statement = warnData[code].warningStatement;
+                activeWarnings.forEach(key => {
+                    let finalCode = key;
+                    const warningObj = warnData[key];
+
+                    // --- 核心修改：處理暴雨代碼邏輯 ---
+                    if (key === 'WRAIN') {
+                        finalCode = warningObj.code; // 直接使用 API 提供的 WRAINA, WRAINR, WRAINB
+                    } 
+                    // --- 處理颱風風向邏輯 ---
+                    else if (key === 'W8') {
+                        const statement = warningObj.warningStatement;
                         if (statement.includes('西北')) finalCode = 'W8NW';
                         else if (statement.includes('東北')) finalCode = 'W8NE';
                         else if (statement.includes('西南')) finalCode = 'W8SW';
                         else if (statement.includes('東南')) finalCode = 'W8SE';
                     }
 
+                    // 渲染邏輯
                     if (warningIconMap[finalCode]) {
                         const img = document.createElement('img');
                         img.src = warningIconMap[finalCode];
@@ -67,7 +92,7 @@ async function updateWeather() {
                         iconContainer.appendChild(img);
                     } else {
                         const span = document.createElement('span');
-                        span.innerText = `[${finalCode}]`;
+                        span.innerText = `[${finalCode}]`; // 如果對不上，這裡會顯示 [WRAINR] 等，方便你偵錯
                         span.style.margin = "5px";
                         span.style.color = "red";
                         span.style.fontWeight = "bold";
@@ -76,6 +101,7 @@ async function updateWeather() {
                 });
             }
         } else {
+            warningElement.style.cssText = "display: none !important; margin: 0; padding: 0; height: 0; overflow: hidden;";
             warningElement.innerText = "";
             if (iconContainer) iconContainer.innerHTML = '';
         }
