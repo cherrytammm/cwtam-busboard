@@ -47,7 +47,7 @@ async function updateWeather() {
             "W9": "images/w9.png", 
             "W10": "images/w10.png", 
             "WCOLD": "images/wcold.png",
-            "WFIREY": "images/wfirey.png", 
+            "WFIRE": "images/wfirey.png", 
             "WFIRER": "images/wfire.png", 
             "WMSGNL": "images/wvy.png",
             "WFROST": "images/wfrost.png", 
