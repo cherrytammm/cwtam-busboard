@@ -70,25 +70,29 @@ async function updateWeather() {
                     let finalCode = key;
                     const warningObj = warnData[key];
 
-                    // --- 核心修改：處理暴雨代碼邏輯 ---
+                    // --- 1. 處理暴雨代碼邏輯 ---
                     if (key === 'WRAIN') {
-                        finalCode = warningObj.code; // 直接使用 API 提供的 WRAINA, WRAINR, WRAINB
+                        finalCode = warningObj.code; // WRAINA, WRAINR, WRAINB
                     } 
-                    // --- 處理颱風風向邏輯 ---
+                    // --- 2. 處理火災危險警告邏輯 ---
+                    else if (key === 'WFIRE') {
+                        finalCode = warningObj.code; // WFIREY (黃色), WFIRER (紅色)
+                    }
+                    // --- 3. 處理颱風風向邏輯 ---
                     else if (key === 'WTCSGNL') {
-                    const apiCode = warningObj.code; // 例如 TC1, TC3, TC8NE, TC8SE 等
-    
-                    // 根據 API 的 code 對應到你的 warningIconMap 檔名
-                    if (apiCode === 'TC1') finalCode = 'W1';
-                    else if (apiCode === 'TC3') finalCode = 'W3';
-                    else if (apiCode === 'TC8NW') finalCode = 'W8NW';
-                    else if (apiCode === 'TC8NE') finalCode = 'W8NE';
-                    else if (apiCode === 'TC8SW') finalCode = 'W8SW';
-                    else if (apiCode === 'TC8SE') finalCode = 'W8SE';
-                    else if (apiCode === 'TC9') finalCode = 'W9';
-                    else if (apiCode === 'TC10') finalCode = 'W10';
-                    else finalCode = 'WMSGNL'; // 預設的強烈季候風或通用波浪圖示
-                }
+                        const apiCode = warningObj.code; // 例如 TC1, TC3, TC8NE, TC8SE 等
+
+                        if (apiCode === 'TC1') finalCode = 'W1';
+                        else if (apiCode === 'TC3') finalCode = 'W3';
+                        else if (apiCode === 'TC8NW') finalCode = 'W8NW';
+                        else if (apiCode === 'TC8NE') finalCode = 'W8NE';
+                        else if (apiCode === 'TC8SW') finalCode = 'W8SW';
+                        else if (apiCode === 'TC8SE') finalCode = 'W8SE';
+                        else if (apiCode === 'TC9') finalCode = 'W9';
+                        else if (apiCode === 'TC10') finalCode = 'W10';
+                        else finalCode = 'WMSGNL'; 
+                    }
+                    
 
                     // 渲染邏輯
                     if (warningIconMap[finalCode]) {
